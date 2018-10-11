@@ -9,29 +9,5 @@ jobs:
       script:
         - docker build -t $DOCKER_USERNAME/docker-openstack-client .
 
-#    - stage: deploy latest
-#      script:
-#        - docker build -t $DOCKER_USERNAME/docker-openstack-client .
-#        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-#        - docker push $DOCKER_USERNAME/docker-openstack-client
-
-    - stage: deploy tag
-      script:
-        - docker build -t $DOCKER_USERNAME/docker-openstack-client:$TRAVIS_TAG .
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push $DOCKER_USERNAME/docker-openstack-client:$TRAVIS_TAG
-
-    - stage: trigger downstream
-      script:
-        - curl -LO https://raw.github.com/stephanmg/travis-dependent-builds/master/trigger.sh
-        - chmod +x trigger.sh
-        - ./trigger.sh snieking docker-openstack-ansible-client master $TRAVIS_ACCESS_TOKEN 
-      
 stages:
-  - name: build
-#  - name: deploy latest
-#    if: branch = master
-  - name: deploy tag
-    if: tag IS present
-  - name: trigger downstream
     if: branch = master
