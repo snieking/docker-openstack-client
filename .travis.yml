@@ -4,5 +4,5 @@ services:
   - docker
 
 before_install:
-  - docker build -t snieking/docker-openstack-client
+  - docker build -t snieking/docker-openstack-client .
   - docker push snieking/docker-openstack-client
