@@ -9,11 +9,11 @@ jobs:
       script:
         - docker build -t $DOCKER_USERNAME/docker-openstack-client .
 
-    - stage: deploy latest
-      script:
-        - docker build -t $DOCKER_USERNAME/docker-openstack-client .
-        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-        - docker push $DOCKER_USERNAME/docker-openstack-client
+#    - stage: deploy latest
+#      script:
+#        - docker build -t $DOCKER_USERNAME/docker-openstack-client .
+#        - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+#        - docker push $DOCKER_USERNAME/docker-openstack-client
 
     - stage: deploy tag
       script:
@@ -29,8 +29,8 @@ jobs:
       
 stages:
   - name: build
-  - name: deploy latest
-    if: branch = master
+#  - name: deploy latest
+#    if: branch = master
   - name: deploy tag
     if: tag IS present
   - name: trigger downstream
