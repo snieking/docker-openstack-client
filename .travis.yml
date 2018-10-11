@@ -34,5 +34,4 @@ stages:
   - name: deploy tag
     if: tag IS present
   - name: trigger downstream
-  - name: 
     if: branch = master
