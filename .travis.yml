@@ -13,8 +13,15 @@ jobs:
         - docker build -t $DOCKER_USERNAME/docker-openstack-client .
         - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
         - docker push snieking/docker-openstack-client
+    - stage: trigger downstream
+      script:
+        - curl -LO https://raw.github.com/stephanmg/travis-dependent-builds/master/trigger.sh
+        - chmod +x trigger.sh
+        - ./trigger.sh snieking docker-openstack-client master $TRAVIS_ACCESS_TOKEN 
       
 stages:
   - name: build
   - name: deploy
+    if: branch = master
+  - name: trigger downstream
     if: branch = master
